@@ -18,20 +18,26 @@ public class BlockManager
                 break;
             case Define.Direction.UP_RIGHT:
                 nearCoord.x += 1;
-                nearCoord.y += 1;
+                if (coord.x % 2 != 0)
+                    nearCoord.y += 1;
                 break;
             case Define.Direction.DOWN_RIGHT:
                 nearCoord.x += 1;
+                if (coord.x % 2 == 0)
+                    nearCoord.y -= 1;
                 break;
             case Define.Direction.DOWN:
                 nearCoord.y -= 1;
                 break;
             case Define.Direction.DOWN_LEFT:
                 nearCoord.x -= 1;
+                if (coord.x % 2 == 0)
+                    nearCoord.y -= 1;
                 break;
             case Define.Direction.UP_LEFT:
                 nearCoord.x -= 1;
-                nearCoord.y += 1;
+                if (coord.x % 2 != 0)
+                    nearCoord.y += 1;
                 break;
         }
         return GetBlock(nearCoord);
@@ -41,6 +47,7 @@ public class BlockManager
         GameObject blockParentObj = new GameObject { name = "BlockParent" };
         _blockParent = blockParentObj.transform;
         CreateBlocks();
+        Managers.Match.CheckMatchingAll();
     }
 
     void CreateBlocks()
@@ -58,6 +65,8 @@ public class BlockManager
         if (type == Define.BlockType.TOP)
             _topCount--;
         GameObject blockObj = Managers.Resource.Instantiate($"{type}", _blockParent);
-        blockObj.GetComponent<Block>().SetBlock(coord);
+        Block block = blockObj.GetComponent<Block>();
+        block.SetBlock(coord);
+        Blocks.Add(block);
     }
 }

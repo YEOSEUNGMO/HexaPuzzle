@@ -9,6 +9,7 @@ public class Managers : MonoBehaviour
     ResourceManager _resource = new ResourceManager();
     TileManager _tile = new TileManager();
     BlockManager _block = new BlockManager();
+    MatchManager _match = new MatchManager();
     // DataManager _data = new DataManager();
     // SceneManagerEx _scene = new SceneManagerEx();
     // SoundManager _sound = new SoundManager();
@@ -20,6 +21,7 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource => Instance._resource;
     public static TileManager Tile => Instance._tile;
     public static BlockManager Block => Instance._block;
+    public static MatchManager Match => Instance._match;
     // public static DataManager Data => Instance._data;
     // public static SceneManagerEx Scene => Instance._scene;
     // public static SoundManager Sound => Instance._sound;
@@ -48,6 +50,7 @@ public class Managers : MonoBehaviour
             _instance._resource.Init();
             _instance._tile.Init();
             _instance._block.Init();
+            _instance._match.Init();
 
             _instance._game = go.AddComponent<GameManager>();
         }
