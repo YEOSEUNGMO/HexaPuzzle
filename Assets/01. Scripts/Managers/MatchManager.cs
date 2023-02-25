@@ -32,25 +32,17 @@ public class MatchManager
 
         var straightBlocks = CheckStraightAll(block);
         if (straightBlocks.Count > 0)
-            {
-                Debug.Log($"Check Result Count : {straightBlocks.Count}");
-                result = result.Union(straightBlocks).ToList();
-            }
-            string s = "";
-            for (int j = 0; j < result.Count; j++)
-            {
-                s += $"{result[j]} /";
-            }
-            Debug.Log($"Union Result => {s}");
-
-            Debug.Log("******************************************");
+        {
+            result = result.Union(straightBlocks).ToList();
+        }
         return result;
     }
 
     public List<Block> CheckStraightAll(Block block)
     {
         List<Block> result = new List<Block>();
-        int dirCount = Enum.GetValues(typeof(Define.Direction)).Length;
+        //상,좌상,좌하 방향만 검사
+        int dirCount = Enum.GetValues(typeof(Define.Direction)).Length - 3;
 
         for (int i = 0; i < dirCount; i++)
         {
@@ -59,7 +51,6 @@ public class MatchManager
             var straightBlocks = CheckStaight(block, dir);
             if (straightBlocks.Count > 0)
             {
-                Debug.Log($"Check Result Count : {straightBlocks.Count}");
                 result = result.Union(straightBlocks).ToList();
             }
         }
@@ -73,7 +64,6 @@ public class MatchManager
         var nextBlock = block;
         result.Add(block);
         Vector2Int currentCoord = block.Coordinates;
-        Debug.Log("===========================================");
         while (true)
         {
             currentCoord = nextBlock.Coordinates;
@@ -84,13 +74,10 @@ public class MatchManager
             if (nextBlock.Type != block.Type)
                 break;
             Vector2Int nextCoord = nextBlock.Coordinates;
-            Debug.Log($"{dir} : {currentCoord} => {nextCoord}");
             result.Add(nextBlock);
         }
         if (result.Count < 3)
             result.Clear();
-        if (result.Count >= 3)
-            Debug.Log($"Matching => {block.name}");
         return result;
     }
 }

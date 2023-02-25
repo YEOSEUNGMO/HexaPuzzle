@@ -6,7 +6,7 @@ public class Block : MonoBehaviour
 {
     public Vector2Int Coordinates;
     public Define.BlockType Type = Define.BlockType.BLUE;
-
+    const float MoveSpeed = 2f;
     public void SetBlock(Vector2Int coord)
     {
         Coordinates = coord;
